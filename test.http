@@ -1,0 +1,12 @@
+GET http://localhost:4004/odata/v4/catalog/
+Authorization: Basic joe:
+###
+POST http://localhost:4004/odata/v4/catalog/CreateEmployee
+Authorization: Basic joe:
+Content-Type: application/json
+
+{"ID":2,"f_name":"Nitin ","l_name":"Ray","dept":"MCA"}
+###
+GET  http://localhost:4004/odata/v4/catalog/getAllEmployee()
+Authorization: Basic joe:
+###

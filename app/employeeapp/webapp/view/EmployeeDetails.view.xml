@@ -1,0 +1,66 @@
+<mvc:View controllerName="employeeapp.controller.EmployeeDetails"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <Table id="empdatatable" items="{/Employees}">
+                <columns>
+                <Column>
+                    <Text text="ID" />
+                </Column>
+                <Column>
+                    <Text text="FirstName" />
+                </Column>
+                <Column>
+                    <Text text="LastName" />
+                </Column>
+                <Column>
+                    <Text text="Department" />
+                </Column>
+                <!-- <Column>
+                    <Text text="JOB Type" />
+                </Column>
+                <Column>
+                    <Text text="City" />
+                </Column> -->
+                </columns>
+                <items>
+                    <ColumnListItem type="Navigation"
+                        press="onClickRow">
+                        <cells>
+                        <Text text="{ID}" />
+                        
+                        </cells>
+                        <cells>
+                        <Text text="{f_name}" />
+                    
+                        </cells>
+                        <cells>
+                        <Text text="{l_name}" />
+                        
+                        </cells>
+                        <cells>
+                        <Text text="{dept}" />
+                        
+                        </cells>
+                        <!-- <cells>
+                        <Text text="{gender}" />
+                        
+                        </cells>
+                        <cells>
+                        <Text text="{j_type}" />
+                        
+                        </cells> -->
+                        
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer/>
+                <Button text="Create New Employee" type="Default"  press="oncreatenewemployeepress"/>
+            </OverflowToolbar>
+      </footer>
+    </Page>
+</mvc:View>
