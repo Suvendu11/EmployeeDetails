@@ -11,3 +11,6 @@ entity Employees {
   l_name : String;
   dept   : String;
 }
+entity EmployeeAddress {
+  key ID : Integer;
+}

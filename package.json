@@ -6,11 +6,12 @@
     "license": "UNLICENSED",
     "private": true,
     "dependencies": {
+        "@sap-cloud-sdk/http-client": "^3.12.1",
+        "@sap-cloud-sdk/resilience": "^3.12.1",
         "@sap/cds": "^7",
         "@sap/cds-hana": "^2",
         "@sap/xssec": "^3",
-        "express": "^4",
-        "@sap-cloud-sdk/http-client": "^2.9.0"
+        "express": "^4"
     },
     "devDependencies": {
         "@cap-js/sqlite": "^1",
@@ -33,8 +34,8 @@
             },
             "spa_api": {
                 "kind": "rest",
-                "credentials":{
-                    "destination": "YourDestinationName"
+                "credentials": {
+                    "destination": "wfdest"
                 }
             }
         }

@@ -14,39 +14,106 @@ module.exports = cds.service.impl(async function () {
     });
 
     this.on('CreateEmployee', async(req) =>{
+        const tx = cds.transaction(req);
+        try {
+            const {f_name, l_name, dept} = req.data;
+            var gID = await getTheEmpID(req);
+            await tx.run(
+                INSERT.into("my.bookshop.Employees").entries({
+                    ID: gID,
+                    f_name: f_name,
+                    l_name: l_name,
+                    dept: dept
+            }));
+            return {
+                ID: gID,
+                f_name: f_name,
+                l_name: l_name,
+                dept: dept
+            };
+        } catch (error) {
+            console.log('Error creating employee'+ error);
+            return {
+                error: error
+            }
+        }
+        // console.log(req);
+        // var getID = req.data.ID;
+        // console.log(getID);
+        // var getFName = req.data.f_name;
+        // var getLName = req.data.l_name;
+        // var getDept = req.data.dept;
+        // const tx = cds.transaction(req);
+        // // var getEmpInfo = await cds.run(cds.parse.cql("INSERT * INTO capproject.db.Employee"));
+        // var insert = await tx.run(INSERT.into("my.bookshop.Employees").entries({
+        //     ID: getID,
+        //     f_name:getFName,
+        //     l_name:getLName,
+        //     dept:getDept
+        // }));
+        // console.log(getFName);
+        // // Trigger the workflow
+        // // await triggerWorkflow(getID, getFName, getLName, getDept);
+        // // var empNames = getEmpInfo[0].Name;
+        // var output = {
+        //     "EmpName": getFName 
+        // };
+        // return output;
+    });
+    this.on('DeleteEmployee', async(req) =>{
         console.log(req);
         var getID = req.data.ID;
-        console.log(getID);
-        var getFName = req.data.f_name;
-        var getLName = req.data.l_name;
-        var getDept = req.data.dept;
+        const input = req.data
         const tx = cds.transaction(req);
-        // var getEmpInfo = await cds.run(cds.parse.cql("INSERT * INTO capproject.db.Employee"));
-        var insert = await tx.run(INSERT.into("my.bookshop.Employees").entries({
-            ID: getID,
-            f_name:getFName,
-            l_name:getLName,
-            dept:getDept
-        }));
-        console.log(insert);
-        // Trigger the workflow
-        await triggerWorkflow(getID, getFName, getLName, getDept);
-        // var empNames = getEmpInfo[0].Name;
+        var deleteentry = await tx.run(DELETE.from("my.bookshop.Employees").where(({ ID: getID})));
+        // await tx.run(
+        //     `DELETE FROM Employees 
+        //                     WHERE ID = ${input.ID}`
+        // )
         var output = {
-            "EmpName": getFName 
+            "ID": getID 
         };
         return output;
     });
-
+    this.on("UpdateEmployee", async (req) =>{
+        const { ID, f_name, l_name, dept } = req.data;
+        console.log(ID);
+        const tx = cds.transaction(req);
+    
+        try {
+            // Update employee record
+            await tx.run(
+                UPDATE("my.bookshop.Employees")
+                    .set({ f_name: f_name, l_name: l_name, dept: dept })
+                    .where({ ID: ID })
+            );
+    
+            return { msg: `Employee with ID ${ID} updated successfully` };
+        } catch (error) {
+            console.error('Error updating employee:', error);
+            return { msg: `Error updating employee with ID ${ID}` };
+        }
+    });
+    async function getTheEmpID(req) {
+        
+        const tx = cds.transaction(req);
+        const latestEmployee = await tx.run(
+            SELECT.from("my.bookshop.Employees").columns("ID").orderBy({ ID: 'desc' }).limit(1)
+        );
+        let newID = 1;
+        if(latestEmployee.length> 0){
+            newID = latestEmployee[0].ID + 1;
+        }
+        return newID;
+    }
     async function triggerWorkflow(employeeID, firstName, lastName, department) {
-        // Call a method or service to trigger the workflow
-        // Pass necessary data to the workflow, such as employee details
-        // Example:
-        // await WorkflowService.startWorkflow({
-        //   employeeId: employeeID,
-        //   fName: firstName,
-        //   lName: lastName,
-        //   dept: department
-        // });
+        const workflowContent = {
+            "definitionId": "myworkflow",
+            "context": {
+            }
+        };
+        const SPA_API = await cds.connect.to('spa_api');    
+        const result = await SPA_API.send('POST', '/workflow-instances', JSON.stringify(workflowContent), { "Content-Type": "application/json" });    
+        return result;
     }
 })

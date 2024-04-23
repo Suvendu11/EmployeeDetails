@@ -11,5 +11,14 @@ service CatalogService {
     returns {
         name:String
     };
+    action DeleteEmployee (ID: Integer)
+    returns {
+        ID:Integer
+    };
+    action UpdateEmployee (ID : Integer, f_name : String, l_name : String,dept : String) 
+    returns {
+        msg:String
+    };
+    entity EmployeeAddress as projection on my.EmployeeAddress;
 }
 

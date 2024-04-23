@@ -3,7 +3,7 @@
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
         <content>
-            <Table id="empdatatable" items="{odataService>/Employees}">
+            <Table id="empdatatable" items="{/Employees}">
                 <columns>
                 <Column>
                     <Text text="ID" />
@@ -17,44 +17,40 @@
                 <Column>
                     <Text text="Department" />
                 </Column>
-                <Column>
+                <!-- <Column>
+                    <Text text="JOB Type" />
                 </Column>
+                <Column>
+                    <Text text="City" />
+                </Column> -->
                 </columns>
                 <items>
                     <ColumnListItem type="Navigation"
                         press="onClickRow">
                         <cells>
-                        <Text text="{odataService>ID}" />
+                        <Text text="{ID}" />
                         
                         </cells>
                         <cells>
-                        <Text text="{odataService>f_name}" />
+                        <Text text="{f_name}" />
                     
                         </cells>
                         <cells>
-                        <Text text="{odataService>l_name}" />
+                        <Text text="{l_name}" />
                         
                         </cells>
                         <cells>
-                        <Text text="{odataService>dept}" />
+                        <Text text="{dept}" />
+                        
+                        </cells>
+                        <!-- <cells>
+                        <Text text="{gender}" />
                         
                         </cells>
                         <cells>
-                                       <HBox>
-                                       <Text></Text>
-                                       <Button 
-                                            icon="sap-icon://edit" 
-                                            enabled="{= %{odataService>dept} === 'None' ? false : true }"
-                                            press=".onPressEditEmployee"/>
-
-                                        <Button id="idDeleteSub" icon="sap-icon://delete" press=".onDeleteEmp" >
-                                            <layoutData>
-                                                <OverflowToolbarLayoutData priority="NeverOverflow" />
-                                            </layoutData>
-                                        </Button>
-
-                                       </HBox>
-                                    </cells>
+                        <Text text="{j_type}" />
+                        
+                        </cells> -->
                         
                     </ColumnListItem>
                 </items>
@@ -64,7 +60,6 @@
             <OverflowToolbar>
                 <ToolbarSpacer/>
                 <Button text="Create New Employee" type="Default"  press="oncreatenewemployeepress"/>
-                <Button text="Create" press="createnewemployee"></Button>
             </OverflowToolbar>
       </footer>
     </Page>

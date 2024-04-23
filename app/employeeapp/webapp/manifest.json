@@ -43,7 +43,7 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.121.2",
       "libs": {
@@ -68,7 +68,7 @@
           "bundleName": "employeeapp.i18n.i18n"
         }
       },
-      "": {
+      "odataService": {
         "dataSource": "mainService",
         "preload": true,
         "settings": {
