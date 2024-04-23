@@ -5,6 +5,7 @@ module.exports = cds.service.impl(async function () {
     this.on('getAllEmployee', async(req) => {
         console.log(req);
         var getID = 1;
+        
         var getEmpInfo = await cds.run(cds.parse.cql("SELECT * FROM my.bookshop.Employees WHERE ID=" + getID ));
         var empNames = getEmpInfo[0].f_name;
         var output = {
