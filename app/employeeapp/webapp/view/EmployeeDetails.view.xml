@@ -3,6 +3,12 @@
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
         <content>
+        <DatePicker
+            id="datePicker"
+            valueFormat="yyyy-MM-dd"
+            value="2016-01-01"
+            change="onDateChange"
+            />
             <Table id="empdatatable" items="{odataService>/Employees}">
                 <columns>
                 <Column>

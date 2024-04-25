@@ -14,7 +14,21 @@ sap.ui.define([
                 var empModel = new sap.ui.model.json.JSONModel();
                 this.getView().setModel(empModel, "empData");
                 // this.readEmployeeList();
-                
+                // var datePicker = new sap.m.DatePicker({
+                //     valueFormat: 'yyyy-MM-dd',
+                //     value: '2016-01-01'
+                //   });
+                //   var oVBox = this.byId("content");
+                //   oVBox.addItem(datePicker);
+                var oDatePicker = this.byId("datePicker");
+                  // Add delegate to handle after rendering
+                  oDatePicker.addDelegate({
+                    onAfterRendering: function() {
+                      // Disable the input field and change its color
+                      var input = oDatePicker.$().find('input');
+                      input.prop('disabled', true).css('color', '#ccc');
+                    }
+                  });
             },
             readEmployeeList: function() {
             var oModel = new sap.ui.model.json.JSONModel();
@@ -103,7 +117,10 @@ sap.ui.define([
                     ID:parseInt(newempData.ID),
                     f_name:newempData.f_name,
                     l_name:newempData.l_name,
-                    dept:newempData.dept
+                    dept:newempData.dept,
+                    email:newempData.email,
+                    position:newempData.position,
+                    mob_no:newempData.mob_no
                 }
                 var url = "/odata/v4/catalog/UpdateEmployee";
                 var that = this;
@@ -129,10 +146,13 @@ sap.ui.define([
                 var oBinding = oTable.getBinding("items");                
                 var newempData = this.getView().getModel("empData").getData();
                 var empPayload = {
-                    ID:parseInt(newempData.ID),
                     f_name:newempData.f_name,
                     l_name:newempData.l_name,
-                    dept:newempData.dept
+                    dept:newempData.dept,
+                    email:newempData.email,
+                    position:newempData.position,
+                    mob_no:newempData.mob_no
+
                 }
                 var url = "/odata/v4/catalog/CreateEmployee";
                 var that = this;
@@ -209,7 +229,10 @@ sap.ui.define([
             onCloseEditDialog: function () {
                 this.byId("editEmpDialog").close();
             },
-
+            
+            // onAfterRendering: function() {
+            //     this.getView().byId("hhh").attr('disabled', true).css('color', '#ccc');
+            //   }
             // _getBaseURL: function () {
             //     var e = this.getOwnerComponent().getManifestEntry("/sap.app/id").replaceAll(".", "/");
             //     return jQuery.sap.getModulePath(e);

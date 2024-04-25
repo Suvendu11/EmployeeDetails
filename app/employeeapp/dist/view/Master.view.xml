@@ -1,0 +1,58 @@
+<mvc:View
+    controllerName="employeeapp.controller.Master"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page
+        id="Master"
+        title="Employee Details"
+        backgroundDesign="Solid"
+    >
+        <VBox>
+            <HBox>
+                <Text
+                    text="Employee Details"
+                />
+                <Button id="idFilterIcon" iconDensityAware="false" text="" type="Default" icon="sap-icon://filter" iconFirst="true" width="auto" enabled="true" visible="true" press="onFilterList"/>
+            </HBox>
+        </VBox>
+        <SearchField
+            placeholder="{i18n>SEARCH_FIELD}"
+            showRefreshButton="true"
+            search="onSearch"
+        />
+
+         <List
+             id ="taxitriplist"
+            headerText="{i18n>REQUEST_TITLE}"
+            items="{odataService>/Employees}"
+        >
+            <items>
+                <ObjectListItem
+                    intro="{odataService>ID}"
+                    title="{odataService>f_name} {odataService>l_name}"
+                    press="onListItemPress"
+                    type="Active"
+                >
+                    <firstStatus>
+                        <ObjectStatus
+                            text="{odataService>email}"
+                        />
+                    </firstStatus>
+                    <attributes>
+                        <!-- <ObjectAttribute
+                            text=" {odataService>email}"
+                            textDirection="LTR"
+                        /> -->
+                        <ObjectAttribute
+                            text=" {odataService>position}"
+                            textDirection="LTR"
+                        />
+                    </attributes>
+                </ObjectListItem>
+            </items>
+        </List>
+        <!-- <Button text="Click" press="onClick"></Button> -->
+    </Page>
+</mvc:View>

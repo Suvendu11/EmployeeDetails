@@ -7,7 +7,7 @@ service CatalogService {
     function getAllEmployee()
     returns 
        array of String;
-    action CreateEmployee (ID : Integer, f_name : String, l_name : String,dept : String)
+    action CreateEmployee (ID : Integer, f_name : String, l_name : String,dept : String, email : String, position : String, mob_no: String)
     returns {
         name:String
     };
@@ -15,10 +15,11 @@ service CatalogService {
     returns {
         ID:Integer
     };
-    action UpdateEmployee (ID : Integer, f_name : String, l_name : String,dept : String) 
+    action UpdateEmployee (ID : Integer, f_name : String, l_name : String,dept : String, email : String, position : String, mob_no: String) 
     returns {
         msg:String
     };
     entity EmployeeAddress as projection on my.EmployeeAddress;
+    
 }
 

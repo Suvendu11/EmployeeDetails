@@ -38,6 +38,10 @@ modules:
       - employeeapp.zip
       name: employeeapp
       target-path: resources/
+    - artifacts:
+      - adminmodule.zip
+      name: adminmodule
+      target-path: resources/
 - name: employeeapp
   type: html5
   path: app/employeeapp
@@ -48,6 +52,46 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
+- name: adminmodule
+  type: html5
+  path: app/adminmodule
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: empdetais-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: empdetais-destination-service
+    parameters:
+      content-target: true
+  - name: empdetais-repo-host
+    parameters:
+      service-key:
+        name: empdetais-repo-host-key
+  - name: empdetais-auth
+    parameters:
+      service-key:
+        name: empdetais-auth-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: approuter_empdetais_repo_host
+          ServiceInstanceName: empdetais-html5-srv
+          ServiceKeyName: empdetais-repo-host-key
+          sap.cloud.service: approuter
+        - Authentication: OAuth2UserTokenExchange
+          Name: approuter_empdetais_auth
+          ServiceInstanceName: empdetais-auth
+          ServiceKeyName: empdetais-auth-key
+          sap.cloud.service: approuter
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
 resources:
 - name: empdetais-db
   type: com.sap.xs.hdi-container
@@ -73,16 +117,7 @@ resources:
   type: org.cloudfoundry.managed-service
   parameters:
     config:
-      HTML5Runtime_enabled: false
-      init_data:
-        instance:
-          destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
-          existing_destinations_policy: update
+      HTML5Runtime_enabled: true
       version: 1.0.0
     service: destination
     service-name: empdetais-destination-service

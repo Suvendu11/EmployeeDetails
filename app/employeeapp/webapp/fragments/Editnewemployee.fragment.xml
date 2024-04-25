@@ -62,6 +62,30 @@
                             editable="true"
                             value="{empData>/dept}"
                         />
+                        <Label
+                            text="Email "
+                            required="true"
+                        />
+                        <Input
+                            editable="true"
+                            value="{empData>/email}"
+                        />
+                        <Label
+                            text="Position "
+                            required="true"
+                        />
+                        <Input
+                            editable="true"
+                            value="{empData>/position}"
+                        />
+                        <Label
+                            text="Mob No "
+                            required="true"
+                        />
+                        <Input
+                            editable="true"
+                            value="{empData>/mob_no}"
+                        />
                         
                     </f:content>
                 </f:SimpleForm>

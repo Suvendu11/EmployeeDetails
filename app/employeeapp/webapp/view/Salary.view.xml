@@ -1,0 +1,61 @@
+<mvc:View
+    controllerName="employeeapp.controller.Salary"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core"
+    xmlns:tnt="sap.tnt"
+>
+    <ScrollContainer vertical="true" height="100%">
+        <tnt:ToolHeader id="shellLikeToolHeaderOnlyMandatoryControls" class="sapUiTinyMargin sapUiLargeMarginTop">
+			<Image src="test-resources/sap/tnt/images/SAP_Logo.png" decorative="false" press="onLogoPressed" tooltip="SAP Logo">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="NeverOverflow"/>
+				</layoutData>
+			</Image>
+			<Title text="Welcome to the Salary Page of {myModel>/data/f_name}" wrapping="false">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="Disappear"/>
+				</layoutData>
+			</Title>
+			<ToolbarSpacer />
+			<Avatar src="test-resources/sap/tnt/images/Woman_avatar_01.png" displaySize="XS" press=".onAvatarPressed" tooltip="Profile">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="NeverOverflow"/>
+				</layoutData>
+			</Avatar>
+		</tnt:ToolHeader>
+        <f:SimpleForm id="SimpleFormDisplay480_12120"
+			editable="false"
+			layout="ResponsiveGridLayout"
+			title="Employee Details"
+			labelSpanXL="4"
+			labelSpanL="4"
+			labelSpanM="12"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="0"
+			emptySpanL="0"
+			emptySpanM="0"
+			emptySpanS="0"
+			columnsXL="2"
+			columnsL="2"
+			columnsM="1"
+			singleContainerFullSize="false" >
+			<f:content>
+				<core:Title text="" />
+				<Label text="Full Name" />
+				<Text text="{myModel>/data/f_name} {myModel>/data/l_name}" />
+				<Label text="Email" />
+				<Text text="{myModel>/data/email}" />
+				<core:Title text="" />
+				<Label text="Position" />
+				<Text text="{myModel>/data/position}" />
+				<Label text="Salary Amount" />
+				<Text text="" />
+			</f:content>
+		</f:SimpleForm>
+    </ScrollContainer>
+</mvc:View>

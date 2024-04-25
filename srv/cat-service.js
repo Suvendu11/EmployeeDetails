@@ -17,20 +17,26 @@ module.exports = cds.service.impl(async function () {
     this.on('CreateEmployee', async(req) =>{
         const tx = cds.transaction(req);
         try {
-            const {f_name, l_name, dept} = req.data;
+            const {f_name, l_name, dept, email, position, mob_no} = req.data;
             var gID = await getTheEmpID(req);
             await tx.run(
                 INSERT.into("my.bookshop.Employees").entries({
                     ID: gID,
                     f_name: f_name,
                     l_name: l_name,
-                    dept: dept
+                    dept: dept,
+                    email: email,
+                    position: position,
+                    mob_no: mob_no
             }));
             return {
                 ID: gID,
                 f_name: f_name,
                 l_name: l_name,
-                dept: dept
+                dept: dept,
+                email: email,
+                position: position,
+                mob_no: mob_no
             };
         } catch (error) {
             console.log('Error creating employee'+ error);
@@ -77,7 +83,7 @@ module.exports = cds.service.impl(async function () {
         return output;
     });
     this.on("UpdateEmployee", async (req) =>{
-        const { ID, f_name, l_name, dept } = req.data;
+        const { ID, f_name, l_name, dept, email, position, mob_no } = req.data;
         console.log(ID);
         const tx = cds.transaction(req);
     
@@ -85,7 +91,12 @@ module.exports = cds.service.impl(async function () {
             // Update employee record
             await tx.run(
                 UPDATE("my.bookshop.Employees")
-                    .set({ f_name: f_name, l_name: l_name, dept: dept })
+                    .set({ f_name: f_name,
+                        l_name: l_name, 
+                        dept: dept,
+                        email: email,
+                        position: position,
+                        mob_no: mob_no })
                     .where({ ID: ID })
             );
     

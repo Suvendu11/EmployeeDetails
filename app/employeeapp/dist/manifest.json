@@ -43,7 +43,7 @@
         }
     },
     "sap.ui5": {
-        "flexEnabled": true,
+        "flexEnabled": false,
         "dependencies": {
             "minUI5Version": "1.121.2",
             "libs": {
@@ -68,7 +68,10 @@
                     "bundleName": "employeeapp.i18n.i18n"
                 }
             },
-            "": {
+            "myModel": {
+                "type": "sap.ui.model.json.JSONModel"
+            },
+            "odataService": {
                 "dataSource": "mainService",
                 "preload": true,
                 "settings": {
@@ -92,24 +95,67 @@
                 "viewType": "XML",
                 "async": true,
                 "viewPath": "employeeapp.view",
-                "controlAggregation": "pages",
-                "controlId": "app",
-                "clearControlAggregation": false
+                "controlAggregation": "detailPages",
+                "controlId": "idAppControl",
+                "bypassed": {
+                    "target": [
+                        "S1",
+                        "S0"
+                    ]
+                }
             },
             "routes": [
                 {
-                    "name": "RouteEmployeeDetails",
-                    "pattern": ":?query:",
+                    "name": "Master",
+                    "pattern": "",
                     "target": [
+                        "TargetMaster"
+                    ]
+                },
+                {
+                    "name": "Master",
+                    "pattern": "",
+                    "target": [
+                        "TargetMaster",
                         "TargetEmployeeDetails"
+                    ]
+                },
+                {
+                    "name": "RouteEmployeeDetails",
+                    "pattern": "RouteEmployeeDetails",
+                    "target": [
+                        "TargetMaster",
+                        "TargetEmployeeDetails"
+                    ]
+                },
+                {
+                    "name": "Salary",
+                    "pattern": "Salary/{ID}",
+                    "target": [
+                        "TargetMaster",
+                        "TargetSalary"
                     ]
                 }
             ],
             "targets": {
+                "TargetMaster": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "controlAggregation": "masterPages",
+                    "viewId": "Master",
+                    "viewName": "Master"
+                },
+                "TargetSalary": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "controlAggregation": "detailPages",
+                    "viewId": "salary",
+                    "viewName": "Salary"
+                },
                 "TargetEmployeeDetails": {
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
+                    "controlAggregation": "detailPages",
                     "viewId": "EmployeeDetails",
                     "viewName": "EmployeeDetails"
                 }
