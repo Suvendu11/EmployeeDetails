@@ -7,9 +7,17 @@
 	xmlns:f="sap.ui.layout.form"
 	xmlns:core="sap.ui.core"
     xmlns:tnt="sap.tnt"
+	xmlns:fc="sap.f"
+	xmlns:card="sap.f.cards"
+	xmlns:si="sap.suite.ui.commons.statusindicator"
 >
     <ScrollContainer vertical="true" height="100%">
         <tnt:ToolHeader id="shellLikeToolHeaderOnlyMandatoryControls" class="sapUiTinyMargin sapUiLargeMarginTop">
+		<Button icon="sap-icon://nav-back" type="Transparent" tooltip="Menu" press="onPressNav">
+				<!-- <layoutData>
+					<OverflowToolbarLayoutData priority="NeverOverflow"/>
+				</layoutData> -->
+			</Button>
 			<Image src="test-resources/sap/tnt/images/SAP_Logo.png" decorative="false" press="onLogoPressed" tooltip="SAP Logo">
 				<layoutData>
 					<OverflowToolbarLayoutData priority="NeverOverflow"/>
@@ -57,5 +65,49 @@
 				<Text text="" />
 			</f:content>
 		</f:SimpleForm>
+
+		<fc:Card class="sapUiMediumMargin" width="300px">
+		<fc:header>
+			<card:Header
+				title="Buy bus ticket on-line"
+				subtitle="Buy a single-ride ticket for a date"
+				iconSrc="sap-icon://bus-public-transport" />
+		</fc:header>
+		<fc:content>
+			<VBox
+				height="110px"
+				class="sapUiSmallMargin"
+				justifyContent="SpaceBetween">
+				<HBox justifyContent="SpaceBetween">
+					<ComboBox
+						width="120px"
+						placeholder="From City"
+						items="{
+							path: 'cities>/cities',
+							sorter: { path: 'text' }
+						}">
+						<core:Item key="{cities>key}" text="{cities>text}" />
+					</ComboBox>
+					<ComboBox
+						width="120px"
+						placeholder="To City"
+						items="{
+							path: 'cities>/cities',
+							sorter: { path: 'text' }
+						}">
+						<core:Item key="{cities>key}" text="{cities>text}" />
+					</ComboBox>
+				</HBox>
+				<HBox renderType="Bare" justifyContent="SpaceBetween">
+					<DatePicker width="200px" placeholder="Choose Date ..." />
+					<Button
+						text="Book"
+						press=".onBookPress"
+						type="Emphasized"
+						class="sapUiTinyMarginBegin" />
+				</HBox>
+			</VBox>
+		</fc:content>
+	</fc:Card>
     </ScrollContainer>
 </mvc:View>

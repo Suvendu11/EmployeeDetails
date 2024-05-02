@@ -1,0 +1,1 @@
+sap.ui.define(["sap/ui/core/mvc/Controller"],function(t){"use strict";return t.extend("employeeapp.controller.EmpSalary",{onInit:function(){var t=sap.ui.core.UIComponent.getRouterFor(this);t.getRoute("EmpSalary").attachMatched(this._onRouteMatched,this)}})});

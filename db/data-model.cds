@@ -13,8 +13,6 @@ entity Employees {
   email    : String;
   position : String;
   mob_no   : String;
-  address: Composition of one EmployeeAddress
-              on address.ID = ID;
 }
 entity EmployeeAddress {
   key ID : Integer;

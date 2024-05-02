@@ -12,9 +12,10 @@
         <VBox>
             <HBox>
                 <Text
-                    text="Employee Details"
+                    text="Employee Details" width="15em"
                 />
-                <Button id="idFilterIcon" iconDensityAware="false" text="" type="Default" icon="sap-icon://filter" iconFirst="true" width="auto" enabled="true" visible="true" press="onFilterList"/>
+                <!-- <Button id="idFilterIcon" iconDensityAware="false" text="" type="Default" icon="sap-icon://filter" iconFirst="true" width="auto" enabled="true" visible="true" press="onFilterList"/> -->
+        <Button iconDensityAware="false" text="Salary Details" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" press="onSalaryPress"/>
             </HBox>
         </VBox>
         <SearchField
@@ -24,7 +25,7 @@
         />
 
          <List
-             id ="taxitriplist"
+             id ="emplist"
             headerText="{i18n>REQUEST_TITLE}"
             items="{odataService>/Employees}"
         >

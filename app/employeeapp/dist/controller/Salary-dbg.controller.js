@@ -16,6 +16,11 @@ sap.ui.define(
             var oArgs = oEvent.getParameter("arguments");
             var empID = oArgs.ID;
             var empData = oArgs.empData;
+        },
+
+        onPressNav : function () {
+          const oRouter = this.getOwnerComponent().getRouter();
+          oRouter.navTo("RouteEmployeeDetails");
         }
       });
     }

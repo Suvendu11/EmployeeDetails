@@ -1,0 +1,69 @@
+<mvc:View
+    controllerName="employeeapp.controller.EmpSalary"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+    xmlns:tnt="sap.tnt"
+	xmlns:f="sap.f"
+	xmlns:w="sap.ui.integration.widgets"
+	xmlns:cssgrid="sap.ui.layout.cssgrid"
+	xmlns:card="sap.f.cards"
+	xmlns:si="sap.suite.ui.commons.statusindicator"
+    xmlns:micro="sap.suite.ui.microchart"
+>
+    <ScrollContainer vertical="true" height="100%" id= "empSalary">
+        <tnt:ToolHeader  class="sapUiTinyMargin sapUiLargeMarginTop">
+		<Button icon="sap-icon://nav-back" type="Transparent" tooltip="Menu" press="onPressNav">
+				<!-- <layoutData>
+					<OverflowToolbarLayoutData priority="NeverOverflow"/>
+				</layoutData> -->
+			</Button>
+			<Image src="test-resources/sap/tnt/images/SAP_Logo.png" decorative="false" press="onLogoPressed" tooltip="SAP Logo">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="NeverOverflow"/>
+				</layoutData>
+			</Image>
+			<Title text="Welcome to the Salary Details" wrapping="false">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="Disappear"/>
+				</layoutData>
+			</Title>
+			<ToolbarSpacer />
+            
+            <micro:RadialMicroChart size="S" percentage="0" valueColor="Error" press="press" class="sapUiSmallMargin"></micro:RadialMicroChart>
+			<Avatar src="test-resources/sap/tnt/images/Woman_avatar_01.png" displaySize="XS" press=".onAvatarPressed" tooltip="Profile">
+				<layoutData>
+					<OverflowToolbarLayoutData priority="NeverOverflow"/>
+				</layoutData>
+			</Avatar>
+		</tnt:ToolHeader>
+        <f:Card class="sapUiMediumMargin" width="300px">
+		<f:header>
+			<card:Header title="Project Cloud Transformation" subtitle="Revenue per Product | EUR" />
+		</f:header>
+		<f:content>
+			<List
+				class="sapUiSmallMarginBottom"
+				showSeparators="None"
+				items="{
+					path: 'products>/productItems'
+				}">
+				<CustomListItem>
+					<HBox alignItems="Center" justifyContent="SpaceBetween">
+						<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+							<Title level="H3" text="{products>title}" />
+							<Text text="{products>subtitle}" />
+						</VBox>
+						<ObjectStatus
+							class="sapUiTinyMargin sapUiSmallMarginEnd"
+							text="{products>revenue}"
+							state="{products>statusSchema}" />
+					</HBox>
+				</CustomListItem>
+			</List>
+		</f:content>
+	</f:Card>
+    </ScrollContainer>
+</mvc:View>

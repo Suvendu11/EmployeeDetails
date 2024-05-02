@@ -13,7 +13,8 @@ sap.ui.define([
                 var oModel = this.getOwnerComponent().getModel();
                 var empModel = new sap.ui.model.json.JSONModel();
                 this.getView().setModel(empModel, "empData");
-                // this.readEmployeeList();
+                var oModel = new sap.ui.model.json.JSONModel();
+                this.getView().setModel(oModel,"appModel");
                 // var datePicker = new sap.m.DatePicker({
                 //     valueFormat: 'yyyy-MM-dd',
                 //     value: '2016-01-01'
@@ -30,23 +31,6 @@ sap.ui.define([
                     }
                   });
             },
-            readEmployeeList: function() {
-            var oModel = new sap.ui.model.json.JSONModel();
-                this.getView().setModel(oModel,"appModel");
-                // Create a binding for the SUBSTITUE_LIST path
-               var oListBinding = this.getModel("odataService").bindList("/Employee", undefined, undefined, undefined);
-               oListBinding.getContexts();
-               // Attach event handler for data received
-               oListBinding.attachEventOnce("change", function(oEvent) {
-                   var aContexts = oListBinding.getContexts(),
-                       oData = aContexts.map(function (oContext) {
-                           return oContext.getObject();
-                           
-                       });
-                       this.getModel("appModel").setProperty("/EmployeeList", oData);
-               }.bind(this));
-               
-           },
    
             isButtonEnabled: function(sDept) {
                 console.log(sDept);
@@ -172,32 +156,32 @@ sap.ui.define([
                 });
                 this.byId("createDialog").close();
             },
-            createnewemployee : function () {
-                var oModel = this.getView().getModel(); 
-                oModel.read('/Employees', {
-                    success: function (data, response) {
-                        console.log(data);
-                    },
-                    error: function (data) {
+            reademployees : function () {
+
+                // var oModel = this.getView().getModel(); 
+                // oModel.read('/Employees', {
+                //     success: function (data, response) {
+                //         console.log(data);
+                //     },
+                //     error: function (data) {
                         
-                    }
-                });
-                var oPayload = {
-                    "f_name": "frgth",
-                    "l_name": "cdfv",
-                    "dept": "MCA"
-                };
-                oModel.create("/CreateEmployee", {
-                    method: "POST",
-                    urlParameters: oPayload,
-                    success: function (oData, response) {
-                        // Handle success response
-                        console.log("Employee created successfully:", oData);
-                    },
-                    error: function (oError) {
-                        // Handle error response
-                        console.error("Error creating employee:", oError);
-                    }
+                //     }
+                // });
+                // var oPayload = {
+                //     "f_name": "frgth",
+                //     "l_name": "cdfv",
+                //     "dept": "MCA"
+                // };
+                var oData = [];
+                var that = this;
+                var oListBinding = this.getOwnerComponent().getModel("odataService").bindList("/Employees");
+                // oListBinding.getContexts();
+                // Attach event handler for data received
+                oListBinding.requestContexts().then(function (aContexts) {
+                     aContexts.forEach(oContext => {
+                        oData.push(oContext.getObject());
+                    });
+                    that.getView().getModel("appModel").setProperty("/Employees", oData);
                 });
             },
             // startWorkflow: function (data) {

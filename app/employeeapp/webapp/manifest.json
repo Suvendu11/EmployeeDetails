@@ -135,6 +135,14 @@
             "TargetMaster",
             "TargetSalary"
           ]
+        },
+        {
+          "name": "EmpSalary",
+          "pattern": "EmpSalary",
+          "target": [
+            "TargetMaster",
+            "TargetEmpSalary"
+          ]
         }
       ],
       "targets": {
@@ -158,6 +166,13 @@
           "controlAggregation": "detailPages",
           "viewId": "EmployeeDetails",
           "viewName": "EmployeeDetails"
+        },
+        "TargetEmpSalary": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "viewId": "empSalary",
+          "viewName": "EmpSalary"
         }
       }
     },
