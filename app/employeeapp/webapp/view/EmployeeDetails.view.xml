@@ -3,6 +3,9 @@
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
         <content>
+        <PullToRefresh
+				id="pullToRefresh"
+				refresh="handleRefresh" />
         <DatePicker
             id="datePicker"
             valueFormat="yyyy-MM-dd"

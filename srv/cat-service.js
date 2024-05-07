@@ -1,18 +1,22 @@
 const cds = require('@sap/cds');
 const debug = require('debug')('srv:catalog-service');
-
+const user = new cds.User('userId');
+const anotherUser = new cds.User(user);
+const yetanotherUser = new cds.User({id:user.id,roles:user.roles,attr:user.attr});
 module.exports = cds.service.impl(async function () {
     
     this.on('getAllEmployee', async(req) => {
+        const lguser = req.user;
         console.log(req);
+        await fetchToken();
         var getID = 1;
-        
+        console.log(user);
         var getEmpInfo = await cds.run(cds.parse.cql("SELECT * FROM my.bookshop.Employees WHERE ID=" + getID ));
         var empNames = getEmpInfo[0].f_name;
         var output = {
             "EmpName": empNames 
         };
-        return output;
+        return lguser;
     });
 
     this.on('CreateEmployee', async(req) =>{
@@ -107,6 +111,13 @@ module.exports = cds.service.impl(async function () {
             return { msg: `Error updating employee with ID ${ID}` };
         }
     });
+
+    this.on('countEmployees', async () => {
+        const tx = this.transaction();
+        const count = await tx.run(SELECT.from("my.bookshop.Employees").count().as('count'));
+        return count[0].count;
+    });
+
     async function getTheEmpID(req) {
         
         const tx = cds.transaction(req);
@@ -129,4 +140,4 @@ module.exports = cds.service.impl(async function () {
         const result = await SPA_API.send('POST', '/workflow-instances', JSON.stringify(workflowContent), { "Content-Type": "application/json" });    
         return result;
     }
-})
+    })

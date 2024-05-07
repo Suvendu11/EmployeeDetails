@@ -3,6 +3,9 @@
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
         <content>
+        <PullToRefresh
+				id="pullToRefresh"
+				refresh="handleRefresh" />
         <DatePicker
             id="datePicker"
             valueFormat="yyyy-MM-dd"
@@ -65,12 +68,15 @@
                     </ColumnListItem>
                 </items>
             </Table>
+            <List items="{appModel>/Employees}">
+                <StandardListItem title="{appModel>ID}"></StandardListItem>
+            </List>
         </content>
         <footer>
             <OverflowToolbar>
                 <ToolbarSpacer/>
                 <Button text="Create New Employee" type="Default"  press="oncreatenewemployeepress"/>
-                <Button text="Create" press="createnewemployee"></Button>
+                <Button text="Read" press="reademployees"></Button>
             </OverflowToolbar>
       </footer>
     </Page>

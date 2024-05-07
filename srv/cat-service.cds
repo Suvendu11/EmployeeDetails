@@ -19,6 +19,8 @@ service CatalogService {
     returns {
         msg:String
     };
+    function countEmployees() returns Integer;
+    
     entity EmployeeAddress as projection on my.EmployeeAddress;
     
 }

@@ -3,9 +3,10 @@ sap.ui.define(
         "sap/ui/core/mvc/Controller",
         "sap/ui/model/Filter",
         "sap/ui/model/FilterOperator",
-        'sap/ui/model/json/JSONModel'
+        'sap/ui/model/json/JSONModel',
+        'sap/ui/core/Fragment'
     ],
-    function(Controller, Filter, FilterOperator, JSONModel) {
+    function(Controller, Filter, FilterOperator, JSONModel, Fragment) {
       "use strict";
   
       return Controller.extend("employeeapp.controller.Master", {
@@ -49,10 +50,48 @@ sap.ui.define(
           });
         },
 
-        onSalaryPress : function () {
+        onSalaryPress : function (oEvent) {
+
+          var oButton = oEvent.getSource(),
+				  oView = this.getView();
+
+          // create popover
+          if (!this._pPopover) {
+            this._pPopover = Fragment.load({
+              id: oView.getId(),
+              name: "employeeapp.fragments.Validation",
+              controller: this
+            }).then(function(oPopover) {
+              oView.addDependent(oPopover);
+              return oPopover;
+            });
+          }
+          this._pPopover.then(function(oPopover) {
+            oPopover.openBy(oButton);
+          });
+
+          
+        },
+        onChangeInputField : function() {
+          var fstInputValue = parseFloat(this.getView().byId("fstinput").getValue());
+          var sndInputValue = parseFloat(this.getView().byId("sndinput").getValue());
+      
+          // Check if both input fields have valid numerical values
+          if (!isNaN(fstInputValue) && !isNaN(sndInputValue)) {
+              var sum = fstInputValue + sndInputValue;
+              
+              // Check if the sum is 5
+              if (sum === 5) {
+                  // Navigate to the "Salary" view
+                  this.navigateToSalaryView();
+              }
+          }
+        },
+        navigateToSalaryView : function () {
           const oRouter = this.getOwnerComponent().getRouter();
           oRouter.navTo("EmpSalary");
         }
+
       });
     }
   );

@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Popover
+		id="myPopover"
+		contentHeight="7em"
+        contentWidth="5em"
+		placement="Bottom"
+		afterClose="handleAfterClose">
+        <Input liveChange="onChangeInputField" id="fstinput"></Input>
+        <Input liveChange="onChangeInputField" id="sndinput"></Input>
+        <Input value = "= 5" enabled="false"></Input>
+	</Popover>
+</core:FragmentDefinition>

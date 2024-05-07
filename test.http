@@ -22,3 +22,6 @@ Content-Type: application/json
 
 { "ID": 2, "f_name":"Suvendu Kumar", "l_name":"Rout", "dept":"MCA"}
 ###
+GET  http://localhost:4004/odata/v4/catalog/countEmployees()
+Authorization: Basic joe:
+###

@@ -31,7 +31,14 @@ sap.ui.define([
                     }
                   });
             },
-   
+            handleRefresh : function (evt) {
+                setTimeout(function () {
+                    this.byId("pullToRefresh").hide();
+                    var oTable = this.getView().byId("empdatatable");
+                    var oBinding = oTable.getBinding("items");
+                    oBinding.refresh(); 
+                }.bind(this), 1000);
+            },
             isButtonEnabled: function(sDept) {
                 console.log(sDept);
                 return sDept !== "None";
@@ -59,6 +66,8 @@ sap.ui.define([
                 var delPayload = {
                     ID:getID
                 }
+
+                
                 var url = "/odata/v4/catalog/DeleteEmployee";
                 var that = this;
                 $.ajax({
@@ -106,22 +115,22 @@ sap.ui.define([
                     position:newempData.position,
                     mob_no:newempData.mob_no
                 }
-                var url = "/odata/v4/catalog/UpdateEmployee";
-                var that = this;
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify(empPayload),
-                    success: function (data) {
-                        oBinding.refresh();
-                        console.log(data);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log("Error");
-                    }
-                });
+                // var url = "/odata/v4/catalog/UpdateEmployee";
+                // var that = this;
+                // $.ajax({
+                //     type: "POST",
+                //     url: url,
+                //     dataType: "json",
+                //     contentType: "application/json",
+                //     data: JSON.stringify(empPayload),
+                //     success: function (data) {
+                //         oBinding.refresh();
+                //         console.log(data);
+                //     },
+                //     error: function (jqXHR, textStatus, errorThrown) {
+                //         console.log("Error");
+                //     }
+                // });
                 this.byId("editEmpDialog").close();
             },
 
@@ -137,23 +146,28 @@ sap.ui.define([
                     position:newempData.position,
                     mob_no:newempData.mob_no
 
-                }
-                var url = "/odata/v4/catalog/CreateEmployee";
-                var that = this;
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    dataType: "json",
-                    contentType: "application/json",
-                    data: JSON.stringify(empPayload),
-                    success: function (data) {
-                        oBinding.refresh();
-                        console.log(data);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log("Error");
-                    }
-                });
+                };
+                var employeeModel = this.getOwnerComponent().getModel("odataService");
+                var oBindList = employeeModel.bindList("/CreateEmployee");
+                oBindList.create(empPayload);
+
+
+                // var url = "/odata/v4/catalog/CreateEmployee";
+                // var that = this;
+                // $.ajax({
+                //     type: "POST",
+                //     url: url,
+                //     dataType: "json",
+                //     contentType: "application/json",
+                //     data: JSON.stringify(empPayload),
+                //     success: function (data) {
+                //         oBinding.refresh();
+                //         console.log(data);
+                //     },
+                //     error: function (jqXHR, textStatus, errorThrown) {
+                //         console.log("Error");
+                //     }
+                // });
                 this.byId("createDialog").close();
             },
             reademployees : function () {
