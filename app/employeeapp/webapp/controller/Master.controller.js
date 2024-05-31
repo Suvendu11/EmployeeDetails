@@ -90,6 +90,13 @@ sap.ui.define(
         navigateToSalaryView : function () {
           const oRouter = this.getOwnerComponent().getRouter();
           oRouter.navTo("EmpSalary");
+        },
+
+        onLoanPress : function () {
+          const oRouter = this.getOwnerComponent().getRouter();
+          oRouter.navTo("Loan",{
+            ID:1
+          });
         }
 
       });

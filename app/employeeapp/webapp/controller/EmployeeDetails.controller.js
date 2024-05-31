@@ -1,11 +1,13 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/core/Fragment"
+    "sap/ui/core/Fragment",
+    "sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, Fragment) {
+    function (Controller, Fragment, Filter, FilterOperator) {
         "use strict";
 
         return Controller.extend("employeeapp.controller.EmployeeDetails", {
@@ -31,6 +33,23 @@ sap.ui.define([
                     }
                   });
             },
+
+            onSearch : function (oEvent) {
+                var oQuery = oEvent.getParameter("query");
+                var aFilter = [];
+                
+                var oTable = this.byId("empdatatable");
+                var oBinding = oTable.getBinding("items");
+                var oRefreshButoon = oEvent.getParameter("refreshButtonPressed");
+                if (oRefreshButoon) {
+                    oBinding.refresh();
+                }
+                if (oQuery){
+                    aFilter.push(new Filter( "ID", FilterOperator.EQ, oQuery))
+                }
+                oBinding.filter(aFilter);
+            },
+
             handleRefresh : function (evt) {
                 setTimeout(function () {
                     this.byId("pullToRefresh").hide();
@@ -147,27 +166,27 @@ sap.ui.define([
                     mob_no:newempData.mob_no
 
                 };
-                var employeeModel = this.getOwnerComponent().getModel("odataService");
-                var oBindList = employeeModel.bindList("/CreateEmployee");
-                oBindList.create(empPayload);
+                // var employeeModel = this.getOwnerComponent().getModel("odataService");
+                // var oBindList = employeeModel.bindList("/CreateEmployee");
+                // oBindList.create(empPayload);
 
 
-                // var url = "/odata/v4/catalog/CreateEmployee";
-                // var that = this;
-                // $.ajax({
-                //     type: "POST",
-                //     url: url,
-                //     dataType: "json",
-                //     contentType: "application/json",
-                //     data: JSON.stringify(empPayload),
-                //     success: function (data) {
-                //         oBinding.refresh();
-                //         console.log(data);
-                //     },
-                //     error: function (jqXHR, textStatus, errorThrown) {
-                //         console.log("Error");
-                //     }
-                // });
+                var url = "/odata/v4/catalog/CreateEmployee";
+                var that = this;
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(empPayload),
+                    success: function (data) {
+                        oBinding.refresh();
+                        console.log(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log("Error");
+                    }
+                });
                 this.byId("createDialog").close();
             },
             reademployees : function () {

@@ -137,6 +137,14 @@
           ]
         },
         {
+          "name": "Loan",
+          "pattern": "Loan/{ID}",
+          "target": [
+            "TargetMaster",
+            "TargetLoan"
+          ]
+        },
+        {
           "name": "EmpSalary",
           "pattern": "EmpSalary",
           "target": [
@@ -166,6 +174,13 @@
           "controlAggregation": "detailPages",
           "viewId": "EmployeeDetails",
           "viewName": "EmployeeDetails"
+        },
+        "TargetLoan": {
+          "viewType": "XML",
+          "transition": "slide",
+          "controlAggregation": "detailPages",
+          "viewId": "empLoan",
+          "viewName": "Loan"
         },
         "TargetEmpSalary": {
           "viewType": "XML",

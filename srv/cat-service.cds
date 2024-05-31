@@ -21,7 +21,7 @@ service CatalogService {
     };
     function countEmployees() returns Integer;
     
-    entity EmployeeAddress as projection on my.EmployeeAddress;
+    // entity EmployeeAddress as projection on my.EmployeeAddress;
     
 }
 

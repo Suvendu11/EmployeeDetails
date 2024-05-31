@@ -78,10 +78,7 @@ module.exports = cds.service.impl(async function () {
         const input = req.data
         const tx = cds.transaction(req);
         var deleteentry = await tx.run(DELETE.from("my.bookshop.Employees").where(({ ID: getID})));
-        // await tx.run(
-        //     `DELETE FROM Employees 
-        //                     WHERE ID = ${input.ID}`
-        // )
+        
         var output = {
             "ID": getID 
         };

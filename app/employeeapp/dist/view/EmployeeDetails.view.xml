@@ -12,6 +12,7 @@
             value="2016-01-01"
             change="onDateChange"
             />
+            <SearchField showRefreshButton="true" showSearchButton="true" search="onSearch"></SearchField>
             <Table id="empdatatable" items="{odataService>/Employees}">
                 <columns>
                 <Column>

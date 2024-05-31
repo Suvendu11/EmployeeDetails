@@ -1,0 +1,225 @@
+<mvc:View controllerName="employeeapp.controller.Loan"
+    xmlns:uxap="sap.uxap"
+    xmlns="sap.m"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form">
+    <Page id="shell">
+        <uxap:ObjectPageLayout id="ObjectPageLayout" showFooter="true" showEditHeaderButton="false" editHeaderButtonPress="handleEditBtnPress" headerContentPinnable="true" upperCaseAnchorBar="false">
+            <uxap:headerTitle>
+                <uxap:ObjectPageDynamicHeaderTitle>
+                    <uxap:expandedHeading>
+                        <Title text="{oUserModel>/oUserData/FirstName} {oUserModel>/oUserData/MiddleName} {oUserModel>/oUserData/LastName}" wrapping="true"/>
+                    </uxap:expandedHeading>
+                    <uxap:snappedHeading>
+                        <Title text="{oUserModel>/oUserData/FirstName} {oUserModel>/oUserData/MiddleName} {oUserModel>/oUserData/LastName}" wrapping="true"/>
+                    </uxap:snappedHeading>
+                    <uxap:expandedContent>
+                        <Text text="{oUserModel>/oUserData/PositionShortText}"/>
+                    </uxap:expandedContent>
+                    <uxap:snappedContent>
+                        <Text text="{oUserModel>/oUserData/PositionShortText}"/>
+                    </uxap:snappedContent>
+                    <uxap:snappedTitleOnMobile>
+                        <Title text="{oUserModel>/oUserData/FirstName} {oUserModel>/oUserData/MiddleName} {oUserModel>/oUserData/LastName}"/>
+                    </uxap:snappedTitleOnMobile>
+                </uxap:ObjectPageDynamicHeaderTitle>
+            </uxap:headerTitle>
+            <uxap:headerContent>
+                <VBox>
+                    <Toolbar id="toolbarOnBehalf" design="Transparent" class="toolbarKITS">
+                    <Text text="{i18n>REQINFO}" class="sapMH4FontSize"/>
+                        <ToolbarSpacer/>
+                        <CheckBox id="onBehalf" text="{i18n>ONBEHALF}" />
+                        <Button id="pickButton" text="{i18n>PICK}" type="Emphasized" icon="sap-icon://cause" press="handlePick" />
+                    </Toolbar>
+                    <form:SimpleForm class="hideFormTitle" editable="false" layout="ResponsiveGridLayout"
+                        labelSpanXL="6" labelSpanL="6" labelSpanM="6" labelSpanS="6"
+                        emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+                        columnsXL="3" columnsL="2" columnsM="2" columnsS="2"
+                        adjustLabelSpan="false" singleContainerFullSize="true" width="100%">
+                        <form:content>   
+                            <Label text="{i18n>ID}" textAlign="Left"/>
+                            <Text id="Id" text="{oUserModel>/oUserData/ID}"/>
+                            <Label text="{i18n>EMAIL}"/>
+                            <Text id="email" text="{oUserModel>/oUserData/EMailAddress}"/>
+                            <Label text="{i18n>DEPT}"/>
+                            <Text id="dept" text="{oUserModel>/oUserData/DepartmentName}"/>
+                            <core:Title></core:Title>
+                            <Label text="{i18n>COST_CEN}"/>
+                            <Text id="costCenter" text="{oUserModel>/oUserData/CostCenter}"/>
+                            <Label text="{i18n>OFFTEL}"/>
+                            <Text id="officeId" text="{oUserModel>/oUserData/OfficeNo}"/>
+                            <Label text="{i18n>MOBNUM}"/>
+                            <Text id="mobileId" text="{oUserModel>/oUserData/MobileNo}"/>
+                        </form:content>   
+                    </form:SimpleForm>
+                </VBox>
+            </uxap:headerContent>
+             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>EVE_INFO}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <VBox>
+                                <form:SimpleForm id="eventInfo" class="hideFormTitle encrpfrom" maxContainerCols="2" labelSpanL="4" labelSpanM="5" labelSpanS="6" columnsL="2" columnsM="2" emptySpanL="0" emptySpanM="0" editable="true" layout="ResponsiveLayout">
+                                    <form:content>
+                                        <core:Title text=""></core:Title>
+                                        <Label required='true' text="{i18n>EVENTLBL}"></Label>
+                                        <Input id="eventName" placeholder="{i18n>EVENTPH}" value="{/d/Eventname}"></Input>
+                                        <Label text="{i18n>EVENTLOC}"></Label>
+                                        <Input id="eventLocation" placeholder="{i18n>EVENTLOCPH}" value="{/d/Eventlocation}"></Input>
+                                        <Label text="{i18n>EVENTTYPE}"></Label>
+                                        <Select id="eventType" autoAdjustWidth="false" change="handleEventTypeChange">
+                                            <items>
+                                                <core:Item key="Training" text="{i18n>TRAINING}" />
+                                                <core:Item key="Conference" text="{i18n>CONF}" />
+                                                <core:Item key="WEP" text="{i18n>WEP}" />
+                                                <core:Item key="Other" text="{i18n>OTHER}" />
+                                            </items>
+                                        </Select>
+                                        <Label id="idOtherLabel" text="{i18n>OTHLBL}" visible="false"></Label>
+                                        <Input id="idOther" placeholder="{i18n>OTHPH}" visible="false"></Input>
+                                        <Label id="eTypeLb" visible="false" text="{i18n>ETYPE}"></Label>
+                                        <Text id="eType" visible="false"></Text>
+                                        <core:Title text=""></core:Title>
+                                        <Label required="true" text="{i18n>DLVMETH}"></Label>
+                                        <Select id="idDeliveryMethod" autoAdjustWidth="false">
+                                            <items>
+                                                <core:Item key="Pick-up" text="{i18n>PICKUP}" />
+                                                <core:Item key="Delivered" text="{i18n>DLVD}" />
+                                            </items>
+                                        </Select>
+                                        <Label required='true' id="startPicker" text="{i18n>STARTDATELBL}"></Label>
+                                        <DateTimePicker id="startDateTime" placeholder="{i18n>STARTDATEPH}"	displayFormat="MMM d,y, h:mm:a"  change="validateStartDate" />
+                                        <Label  required='true' id="endPicker" text="{i18n>ENDDATELBL}"></Label>
+                                        <DateTimePicker id="endDateTime" placeholder="{i18n>ENDDATEPH}" displayFormat="MMM d,y, h:mm:a" change="validateDate" />
+                                        <Label id="startTimeLbl" visible="false" text="{i18n>STARTDATELBL}"></Label>
+                                        <Text id="startTime" visible="false"></Text>
+                                        <Label id="endTimeLbl" visible="false" text="{i18n>ENDDATELBL}"></Label>
+                                        <Text id="endTime" visible="false"></Text>
+                                    </form:content>
+                                </form:SimpleForm>
+                                <form:SimpleForm class="encrpfrom" maxContainerCols="2" layout="ResponsiveGridLayout"
+                                    columnsXL="3" columnsL="2" columnsM="2" columnsS="1">
+                                    <form:title>
+                                        <core:Title text="{i18n>JUS}"></core:Title>
+                                    </form:title>
+                                    <form:content>
+                                        <TextArea id="comment" maxLength="4900" value="{/d/Justification}" rows="5" width="100%" placeholder="{i18n>JUSPH}"></TextArea>
+                                    </form:content>
+                                </form:SimpleForm>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>DEV_INFO}">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <VBox>
+                           
+                                <form:SimpleForm id="audioVisualDev" class="encrpfrom multiform" labelSpanL="5" labelSpanM="5" labelSpanS="5" columnsL="2" columnsM="2" emptySpanL="0" emptySpanM="0" maxContainerCols="2" layout="ResponsiveGridLayout" editable="true">
+                                    <form:content>
+                                        <core:Title text="{i18n>AUDVID}"></core:Title>
+                                        <VBox>
+                                        <MultiComboBox id="avDevices" selectionChange="handleSelectionChange" class="mobmulticombo" selectionFinish="handleSelectionFinish" placeholder="{i18n>CHOOSE_AUDIO}">
+                                            <core:Item key="pasystem" text="{i18n>PASYS}" />
+                                            <core:Item key="projector" text="{i18n>PROJ}" />
+                                            <core:Item key="speaker" text="{i18n>SPEAKER}" />
+                                            <core:Item key="screen" text="{i18n>SCREEN}" />
+                                            <core:Item key="clicker" text="{i18n>CLICK}" />
+                                            <core:Item key="appledviconnector" text="{i18n>APPLECONNECTER}" />
+                                            <core:Item key="hdmidviconnector" text="{i18n>HDMICONNECTER}" />
+                                            <core:Item key="visualizer" text="{i18n>VIS}" />
+                                            <core:Item key="vgaconnector" text="{i18n>VGA}" />
+                                        </MultiComboBox>
+                                       
+                                        <Text id="avTxt" visible="false"></Text></VBox>
+                                        <core:Title text="{i18n>COMPACC}"></core:Title>
+                                        <VBox id="vBoxComps">
+                                            <MultiInput id="multiInput" valueHelpRequest="onValueHelpRequest" placeholder="{i18n>COMPACCPH}" />
+                                            <Label id="txt" text="{i18n>REASON}" class="sapUiTinyMarginTop"></Label>
+                                            <Select id="idReason" change="handleReasonChange">
+                                                <items>
+                                                    <core:Item key="Loan" text="{i18n>LOAN}" />
+                                                    <core:Item key="Repair" text="{i18n>REPAIR}" />
+                                                </items>
+                                            </Select>
+                                            <Input id="idIncidentReport" visible="false" placeholder="{i18n>INCREPORTPH}" width="150pt"></Input>
+                                        </VBox>
+                                        <Label id="devLbl" text="{i18n>DEVICES}"></Label>
+                                        <Text id="devices" visible="false"></Text>
+                                        <Label id="reasonLbl" text="{i18n>REASON}"></Label>
+                                        <Text id="reason" visible="false"></Text>
+                                        <Label id="incidentLbl" text="{i18n>INCREPORT}"></Label>
+                                        <Text id="incident" visible="false"></Text>
+                                    </form:content>
+                                </form:SimpleForm>
+                             
+                                <Toolbar id="toolbarDis" design="Info" height="3rem">
+                                    <CheckBox id="disclBox" text="*" />
+                                    <Text id="txt2" text="{i18n>ACKTXT}"></Text>
+                                </Toolbar>
+                                <VBox id="disclaimer2Box" class="orderTxt">
+                                    <Text class="sapMSampleTextMaxLinesText" text="{i18n>DISCTXT1}"></Text>
+                                    <Text class="sapMSampleTextMaxLinesText" text="{i18n>DISCTXT2}"></Text>
+                                    <Text class="sapMSampleTextMaxLinesText" text="{i18n>DISCTXT3}"></Text>
+                                    <Text class="sapMSampleTextMaxLinesText" text="{i18n>DISCTXT4}"></Text>
+                                </VBox>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection id="equipIcon" titleUppercase="false" title="{i18n>EQUIP_INFO}" visible="false">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection titleUppercase="false">
+                        <uxap:blocks>
+                            <form:SimpleForm id="equipInfoForm" class="encrpfrom" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="3" labelSpanS="6" columnsL="3" columnsM="3" emptySpanL="0" emptySpanM="0" maxContainerCols="2">
+                                <form:content>
+                                    <Table items="{/}">
+                                        <columns>
+                                            <Column hAlign="Left">
+                                                <Text text="{i18n>EQUIP_NO}" />
+                                            </Column>
+                                            <Column hAlign="Left">
+                                                <Text text="{i18n>EQUIP_DESC}" />
+                                            </Column>
+                                            <Column hAlign="Left">
+                                                <Text text="{i18n>STRTDATE}" />
+                                            </Column>
+                                            <Column hAlign="Left">
+                                                <Text text="{i18n>ENDDATE}" />
+                                            </Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem>
+                                                <cells>
+                                                    <Text text="{equipmentNumber}" />
+                                                    <Text text="{equipmentDescription}" />
+                                                    <Text text="{startDate}" />
+                                                    <Text text="{endDate}" />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+                                </form:content>
+                            </form:SimpleForm>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:footer>
+                <OverflowToolbar id="idfooter">
+                    <ToolbarSpacer/>
+                    <Button id="submitButton" text="{i18n>SUBMIT}" icon="sap-icon://accept" press="handleSubmit" type="Accept"></Button>
+                    <Button id="cancelButton" press="goBack" text="{i18n>CANCEL}" icon="sap-icon://sys-cancel" type="Reject"></Button>
+                </OverflowToolbar>
+            </uxap:footer>
+        </uxap:ObjectPageLayout>
+    </Page>
+</mvc:View>
