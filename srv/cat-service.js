@@ -1,5 +1,6 @@
 const cds = require('@sap/cds');
 const debug = require('debug')('srv:catalog-service');
+const nodemailer = require('nodemailer');
 const user = new cds.User('userId');
 const anotherUser = new cds.User(user);
 const yetanotherUser = new cds.User({id:user.id,roles:user.roles,attr:user.attr});
@@ -80,7 +81,7 @@ module.exports = cds.service.impl(async function () {
         var deleteentry = await tx.run(DELETE.from("my.bookshop.Employees").where(({ ID: getID})));
         
         var output = {
-            "ID": getID 
+            "ID": getID
         };
         return output;
     });
@@ -113,6 +114,41 @@ module.exports = cds.service.impl(async function () {
         const tx = this.transaction();
         const count = await tx.run(SELECT.from("my.bookshop.Employees").count().as('count'));
         return count[0].count;
+    });
+
+    this.on('triggeremail',async (req) => {
+        
+        const email = req.data.email;
+        const fname = req.data.f_name;
+        let mailTransporter =
+            nodemailer.createTransport(
+                {
+                    service: 'gmail',
+                    auth: {
+                        user: 'suvendu.kumar.rout@badgebytes.com',
+                        pass: 'qdgl vjeu rkvj obif'
+                    }
+                }
+            );
+
+        let mailDetails = {
+            from: 'suvendu.kumar.rout@badgebytes.com',
+            to: email,
+            subject: 'Employee ID Created',
+            text: `Dear ${fname},
+                   You'r employee id was created.`
+        };
+
+        mailTransporter
+            .sendMail(mailDetails,
+                function (err, data) {
+                    if (err) {
+                        console.log('Error Occurs');
+                    } else {
+                        console.log('Email sent successfully');
+                    }
+                });
+
     });
 
     async function getTheEmpID(req) {

@@ -25,3 +25,9 @@ Content-Type: application/json
 GET  http://localhost:4004/odata/v4/catalog/countEmployees()
 Authorization: Basic joe:
 ###
+POST http://localhost:4004/odata/v4/catalog/triggeremail
+Authorization: Basic joe:
+Content-Type: application/json
+
+{"ID": 2, "f_name":"Hello","l_name":"cdfv","dept":"MCA", "email":"suvendurout011@gmail.com","position":"position","mob_no":""}
+###

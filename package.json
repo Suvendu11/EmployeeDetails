@@ -11,7 +11,8 @@
         "@sap/cds": "^7",
         "@sap/cds-hana": "^2",
         "@sap/xssec": "^3",
-        "express": "^4"
+        "express": "^4.19.2",
+        "nodemailer": "^6.9.14"
     },
     "devDependencies": {
         "@cap-js/sqlite": "^1",
@@ -28,15 +29,36 @@
     },
     "cds": {
         "requires": {
-            "[production]": {
-                "db": "hana",
-                "auth": "mocked"
+            "uaa": {
+                "kind": "xsuaa"
             },
-            "spa_api": {
-                "kind": "rest",
-                "credentials": {
-                    "destination": "wfdest"
+            "auth": {
+                "[production]": {
+                    "strategy": "JWT"
+                },
+                "[development]": {
+                    "strategy": "mock",
+                    "users": {
+                        "suvendurout807@gmail.com": {
+                            "roles": [
+                                "Viewer",
+                                "Admin"
+                            ]
+                        }
+                    }
                 }
+            },
+            "db": {
+                "[production]": {
+                    "kind": "hana"
+                },
+                "[development]": {
+                    "kind": "sqlite"
+                },
+                "model": [
+                    "db",
+                    "srv"
+                ]
             }
         }
     }
