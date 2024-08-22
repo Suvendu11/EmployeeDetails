@@ -2,13 +2,14 @@ ET http://localhost:4004/odata/v4/catalog/
 Authorization: Basic joe:
 ###
 POST http://localhost:4004/odata/v4/catalog/CreateEmployee
-Authorization: Basic joe:
+Authorization: Basic suvendurout807@gmail.com:
 Content-Type: application/json
 
 {"f_name":"Hello","l_name":"cdfv","dept":"MCA", "email":"fg","position":"position","mob_no":""}
 ###
 GET  http://localhost:4004/odata/v4/catalog/getAllEmployee()
-Authorization: Basic joe:
+Authorization: Basic suvendurout807@gmail.com:
+Content-Type: application/json
 ###
 POST http://localhost:4004/odata/v4/catalog/DeleteEmployee
 Authorization: Basic joe:

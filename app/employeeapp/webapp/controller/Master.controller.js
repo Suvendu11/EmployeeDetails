@@ -97,7 +97,44 @@ sap.ui.define(
           oRouter.navTo("Loan",{
             ID:1
           });
-        }
+        },
+
+        onCloseEditDialog: function () {
+          this.byId("tableEmpDialog").close();
+        },
+
+        onTablePress : function (oEvent) {
+          if (!this.byId("tableEmpDialog")) {
+            var oView = this.getView();
+            Fragment.load({
+                id: oView.getId(),
+                name: "employeeapp.fragments.Table",
+                controller: this,
+            }).then(function (oDialog) {
+                oView.addDependent(oDialog);
+                oDialog.open();
+            });
+          } else {
+              this.byId("tableEmpDialog").open();
+          }
+        },
+        getID : function () {
+          return this.createId("Fragment2Page");
+        },
+
+        onSearch : function (oEvent) {
+          const aFilter = [];
+            const sQuery = oEvent.getParameter("query");
+            if (sQuery) {
+                aFilter.push(new Filter("f_name", FilterOperator.Contains, sQuery));
+            }
+
+            // filter binding
+            const oList = sap.ui.getCore().byId("container-employeeapp---Master--idProductsTable");
+            // const oList =  sap.ui.getCore().byId("container-workflowmonitoring---Master--Fragment2Page--idProductsTable")
+            const oBinding = oList.getBinding("items");  
+            oBinding.filter(aFilter);
+      },
 
       });
     }

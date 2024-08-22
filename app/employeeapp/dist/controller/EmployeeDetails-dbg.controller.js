@@ -12,6 +12,23 @@ sap.ui.define([
 
         return Controller.extend("employeeapp.controller.EmployeeDetails", {
             onInit: function () {
+                var oData = {
+                    "startEvent": {
+                        "_age": 26,
+                        "enterTheEmployeeID": 45
+                    }
+                };
+    
+                // Convert JSON object to a pretty-printed string
+                var sJsonString = JSON.stringify(oData, null, 1); 
+    
+                // Create a JSON model with the string
+                var oModel = new sap.ui.model.json.JSONModel({ jsonString: sJsonString });
+    
+                // Set the model to the view
+                this.getView().setModel(oModel, "jsonModel");
+                //........................................ 
+
                 var oModel = this.getOwnerComponent().getModel();
                 var empModel = new sap.ui.model.json.JSONModel();
                 this.getView().setModel(empModel, "empData");

@@ -4,10 +4,6 @@
   "description": "Security profile of called application",
   "scopes": [
     {
-      "name": "uaa.user",
-      "description": "UAA"
-    },
-    {
       "name": "$XSAPPNAME.Viewer",
       "description": "Viewer"
     },
@@ -18,22 +14,15 @@
   ],
   "role-templates": [
     {
-      "name": "Token_Exchange",
-      "description": "UAA Token Exchange",
-      "scope-references": [
-        "uaa.user"
-      ]
-    },
-    {
       "name": "Viewer",
-      "description": "Viewer",
+      "description": "Viewer Role",
       "scope-references": [
         "$XSAPPNAME.Viewer"
       ]
     },
     {
       "name": "Admin",
-      "description": "Administrator",
+      "description": "Administrator Role",
       "scope-references": [
         "$XSAPPNAME.Admin"
       ]

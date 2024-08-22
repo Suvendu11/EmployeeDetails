@@ -4,7 +4,19 @@ service CatalogService @(requires: 'authenticated-user') {
     @readonly entity Books as projection on my.Books;
     entity Employees as projection on my.Employees;
 
-    function getAllEmployee()
+    function getAllEmployee@(
+        restrict: [
+            {
+              grant : ['READ'],
+              to    : ['Viewer'],
+              where: 'email = $user.id'
+            },
+            {
+              grant: ['READ'],
+              to: ['Admin']
+            }
+          ]
+        )()
     returns 
        array of String;
     action CreateEmployee @(
@@ -27,8 +39,10 @@ service CatalogService @(requires: 'authenticated-user') {
         msg:String
     };
     function countEmployees() returns Integer;
-    action triggeremail(f_name : String, l_name : String,dept : String, email : String, position : String, mob_no: String)
+    action triggeremail(f_name : String, l_name : String,dept : String, email : String, position : String, mob_no: String);
     // entity EmployeeAddress as projection on my.EmployeeAddress;
-    
+    function userInfo() 
+    returns 
+        array of String;
 }
 

@@ -12,10 +12,12 @@
         <VBox>
             <HBox>
                 <Text
-                    text="Employee Details" width="15em"
+                    text="Employee Details" 
                 />
                 <Button id="idloan" iconDensityAware="false" text="Loan" type="Default" width="auto" enabled="true" visible="true" press="onLoanPress"/>
                 <Button iconDensityAware="false" text="Salary Details" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" press="onSalaryPress"/>
+                
+                <Button iconDensityAware="false" text="Table" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" press="onTablePress"/>
             </HBox>
         </VBox>
         <SearchField

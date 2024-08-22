@@ -2,25 +2,50 @@ const cds = require('@sap/cds');
 const debug = require('debug')('srv:catalog-service');
 const nodemailer = require('nodemailer');
 const user = new cds.User('userId');
+const { jwtDecode } = require('jwt-decode');
 const anotherUser = new cds.User(user);
 const yetanotherUser = new cds.User({id:user.id,roles:user.roles,attr:user.attr});
 module.exports = cds.service.impl(async function () {
     
-    this.on('getAllEmployee', async(req) => {
-        const lguser = req.user;
-        console.log(req);
-        await fetchToken();
-        var getID = 1;
-        console.log(user);
-        var getEmpInfo = await cds.run(cds.parse.cql("SELECT * FROM my.bookshop.Employees WHERE ID=" + getID ));
-        var empNames = getEmpInfo[0].f_name;
-        var output = {
-            "EmpName": empNames 
-        };
-        return lguser;
+    this.on('getAllEmployee', async(req, res) => {
+        const user = req.user;  // Get the user object
+        let getEmpInfo;
+    
+        // Access roles directly from the roles object
+        const roles = user.roles || {};  // Default to an empty object if roles are not defined
+        const userEmail = user.id;       // Use user.id as the email
+    
+        if (roles.Admin) {
+            // Admin role: Get all employee data
+            getEmpInfo = await cds.run(cds.parse.cql("SELECT * FROM my.bookshop.Employees"));
+        } else if (roles.Viewer) {
+            // Viewer role: Only get the logged-in user's data
+            getEmpInfo = await cds.run(cds.parse.cql(`SELECT * FROM my.bookshop.Employees WHERE email='${userEmail}'`));
+        } else {
+            // If no recognized role, return an empty result or an error message
+            return {
+                "EmpNames": 'No roles found for the user or unauthorized access'
+            };
+        }
+    
+        // Prepare the output
+        if (getEmpInfo && getEmpInfo.length > 0) {
+            const empNames = getEmpInfo.map(emp => emp.f_name); // Collect all first names
+            const output = {
+                "EmpNames": empNames 
+            };
+            return output;
+        } else {
+            // Handle case where no data is found
+            return {
+                "EmpNames": 'No data found for the given user or criteria'
+            };
+        }
     });
 
     this.on('CreateEmployee', async(req) =>{
+        var userDetails = await getUserRoles(req);
+        console.log('user Details :: '+ userDetails);
         const tx = cds.transaction(req);
         try {
             const {f_name, l_name, dept, email, position, mob_no} = req.data;
@@ -50,28 +75,7 @@ module.exports = cds.service.impl(async function () {
                 error: error
             }
         }
-        // console.log(req);
-        // var getID = req.data.ID;
-        // console.log(getID);
-        // var getFName = req.data.f_name;
-        // var getLName = req.data.l_name;
-        // var getDept = req.data.dept;
-        // const tx = cds.transaction(req);
-        // // var getEmpInfo = await cds.run(cds.parse.cql("INSERT * INTO capproject.db.Employee"));
-        // var insert = await tx.run(INSERT.into("my.bookshop.Employees").entries({
-        //     ID: getID,
-        //     f_name:getFName,
-        //     l_name:getLName,
-        //     dept:getDept
-        // }));
-        // console.log(getFName);
-        // // Trigger the workflow
-        // // await triggerWorkflow(getID, getFName, getLName, getDept);
-        // // var empNames = getEmpInfo[0].Name;
-        // var output = {
-        //     "EmpName": getFName 
-        // };
-        // return output;
+        
     });
     this.on('DeleteEmployee', async(req) =>{
         console.log(req);
@@ -150,6 +154,26 @@ module.exports = cds.service.impl(async function () {
                 });
 
     });
+
+    function getJWT(req) {
+        const jwt = /^Bearer (.*)$/.exec(req.headers.authorization)[1];
+        console.log("jwt: ", jwt)
+        return jwt;
+      }
+    async function getUserRoles(req) {
+        let results = {};
+        results.user = req.user.id;
+        if (req.user.hasOwnProperty('locale')) {
+            results.locale = req.user.locale;
+        }
+        results.scopes = {};
+        results.scopes.identified = req.user.is('identified-user');
+        results.scopes.authenticated = req.user.is('authenticated-user');
+        results.scopes.Viewer = req.user.is('Viewer');
+        results.scopes.Admin = req.user.is('Admin');
+
+        return results;
+    }
 
     async function getTheEmpID(req) {
         

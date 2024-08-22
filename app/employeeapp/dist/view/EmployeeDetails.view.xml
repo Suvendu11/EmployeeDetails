@@ -1,11 +1,15 @@
 <mvc:View controllerName="employeeapp.controller.EmployeeDetails"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
+    xmlns="sap.m" xmlns:ce="sap.ui.codeeditor">
     <Page id="page" title="{i18n>title}">
         <content>
         <PullToRefresh
 				id="pullToRefresh"
 				refresh="handleRefresh" />
+                <VBox>
+        <!-- Use CodeEditor control for JSON display -->
+        <ce:CodeEditor type="json" value="{jsonModel>/jsonString}" width="100%" height="200px" editable="false"/>
+    </VBox>
         <DatePicker
             id="datePicker"
             valueFormat="yyyy-MM-dd"

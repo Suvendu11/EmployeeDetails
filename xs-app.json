@@ -1,0 +1,17 @@
+{
+    "welcomeFile": "index.html",
+    "authenticationMethod": "route",
+    "routes": [
+        {
+            "source": "/user-info/(.*)",
+            "destination": "srv-api",
+            "csrfProtection": true,
+            "authenticationType": "xsuaa"
+        },
+        {
+            "source": "/(.*)",
+            "localDir": "root",
+            "authenticationType": "xsuaa"
+        }
+    ]
+}

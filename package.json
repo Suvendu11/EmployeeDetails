@@ -8,10 +8,12 @@
     "dependencies": {
         "@sap-cloud-sdk/http-client": "^3.12.1",
         "@sap-cloud-sdk/resilience": "^3.12.1",
+        "@sap/approuter": "^16.6.2",
         "@sap/cds": "^7",
         "@sap/cds-hana": "^2",
         "@sap/xssec": "^3",
         "express": "^4.19.2",
+        "jwt-decode": "^4.0.0",
         "nodemailer": "^6.9.14"
     },
     "devDependencies": {
@@ -41,7 +43,6 @@
                     "users": {
                         "suvendurout807@gmail.com": {
                             "roles": [
-                                "Viewer",
                                 "Admin"
                             ]
                         }

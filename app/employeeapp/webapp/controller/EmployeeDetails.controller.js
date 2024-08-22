@@ -12,6 +12,49 @@ sap.ui.define([
 
         return Controller.extend("employeeapp.controller.EmployeeDetails", {
             onInit: function () {
+
+//                 var form = new FormData();
+// form.append("to", "suv@gmail.com");
+// form.append("subject", "Test Email with Attachment");
+// form.append("text", "Hello world!");
+// form.append("html", "<b>Hello world!</b>");
+// var url = "/odata/v4/catalog/DeleteEmployee";
+// var that = this;
+
+// var settings = {
+//     "url": "https://EmailSendApp.cfapps.us10-001.hana.ondemand.com/send-email",
+//     "method": "POST",
+//     "timeout": 0,
+//     "headers": {
+//       "Content-Type": "application/json"
+//     },
+//     "processData": false,
+//     "mimeType": "multipart/form-data",
+//     "contentType": false,
+//     "data": form
+//   };
+  
+//   $.ajax(settings).done(function (response) {
+//     console.log(response);
+//   })
+
+                var oData = {
+                    "startEvent": {
+                        "_age": 26,
+                        "enterTheEmployeeID": 45
+                    }
+                };
+    
+                // Convert JSON object to a pretty-printed string
+                var sJsonString = JSON.stringify(oData, null, 1); 
+    
+                // Create a JSON model with the string
+                var oModel = new sap.ui.model.json.JSONModel({ jsonString: sJsonString });
+    
+                // Set the model to the view
+                this.getView().setModel(oModel, "jsonModel");
+                //........................................ 
+
                 var oModel = this.getOwnerComponent().getModel();
                 var empModel = new sap.ui.model.json.JSONModel();
                 this.getView().setModel(empModel, "empData");
