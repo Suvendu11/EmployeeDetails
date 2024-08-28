@@ -15,6 +15,32 @@ entity Employees {
   mob_no   : String;
   // address  : Composition of one EmployeeAddress on address.employee_ID = $self.ID;
 }
+
+entity Customers {
+    key ID          : String;
+        name        : String(100);
+        email       : String(100);
+        phoneNumber : String(20);
+        city        : String(50);
+        leads       : Composition of many Leads
+                          on leads.customer = $self;
+}
+ 
+ 
+entity Leads {
+    key ID          : UUID;
+        title       : String(100);
+        description : String(255);
+        status      : String(20) enum {
+            New;
+            InProgress;
+            Implemented;
+        } default 'New';
+        customer    : Association to Customers;
+                     
+}
+ 
+
 // entity EmployeeAddress {
 //   key ID : Integer;
 //   building_name : String;

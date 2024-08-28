@@ -12,6 +12,32 @@ sap.ui.define([
 
         return Controller.extend("employeeapp.controller.EmployeeDetails", {
             onInit: function () {
+
+//                 var form = new FormData();
+// form.append("to", "suv@gmail.com");
+// form.append("subject", "Test Email with Attachment");
+// form.append("text", "Hello world!");
+// form.append("html", "<b>Hello world!</b>");
+// var url = "/odata/v4/catalog/DeleteEmployee";
+// var that = this;
+
+// var settings = {
+//     "url": "https://EmailSendApp.cfapps.us10-001.hana.ondemand.com/send-email",
+//     "method": "POST",
+//     "timeout": 0,
+//     "headers": {
+//       "Content-Type": "application/json"
+//     },
+//     "processData": false,
+//     "mimeType": "multipart/form-data",
+//     "contentType": false,
+//     "data": form
+//   };
+  
+//   $.ajax(settings).done(function (response) {
+//     console.log(response);
+//   })
+
                 var oData = {
                     "startEvent": {
                         "_age": 26,
