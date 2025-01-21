@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<Dialog id="createDialog" title="Crate a New Employee">
+    <f:SimpleForm id="SimpleFormChange480_Trial" editable="true" layout="ResponsiveGridLayout" title="Please fill up all the fileds to generate a new employee." labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                    <f:content>
+                        <Label text="First Name " required="true"/>
+                        <!-- <ToolbarSpacer width="10px" /> -->
+                        <Input id="fnameid" editable="true" value="{empData>/f_name}" required="true"/>
+                        <Label text="Last Name " required="true"/>
+                        <Input id="lastnameid" editable="true" value="{empData>/l_name}"/>
+                        <Label text="Department " required="true"/>
+                        <Input id="deptid" editable="true" value="{empData>/dept}"/>
+                        <Label text="Email " required="true"/>
+                        <Input editable="true" value="{empData>/email}"/>
+                        <Label text="Position " required="true"/>
+                        <Input editable="true" value="{empData>/position}"/>
+                        <Label text="Mob No " required="true"/>
+                        <Input editable="true" value="{empData>/mob_no}"/>
+                        
+                    </f:content>
+                </f:SimpleForm>
+		<beginButton>
+            <Button text="Submit" press=".onPressSubmitButton"/>
+		</beginButton>
+        <endButton>
+			<Button text="Close" press=".project1sapfiori.ext.controller.Addemployee.onCloseDialog"/></endButton>
+	</Dialog>
+</core:FragmentDefinition>

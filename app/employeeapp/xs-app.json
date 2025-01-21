@@ -3,9 +3,9 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/wfdest/(.*)$",
+      "source": "^/odata/(.*)$",
       "target": "$1",
-      "destination": "wfdest",
+      "destination": "empdetails",
       "authenticationType": "none"
     },
     {

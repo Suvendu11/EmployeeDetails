@@ -42,6 +42,14 @@ modules:
       - adminmodule.zip
       name: adminmodule
       target-path: resources/
+    - artifacts:
+      - project1sapfiori.zip
+      name: project1sapfiori
+      target-path: resources/
+    - artifacts:
+      - employeelistreport.zip
+      name: employeelistreport
+      target-path: resources/
 - name: employeeapp
   type: html5
   path: app/employeeapp
@@ -92,6 +100,26 @@ modules:
         existing_destinations_policy: ignore
   build-parameters:
     no-source: true
+- name: project1sapfiori
+  type: html5
+  path: app/project1sapfiori
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: employeelistreport
+  type: html5
+  path: app/employeelistreport
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
 resources:
 - name: empdetais-db
   type: com.sap.xs.hdi-container
@@ -118,6 +146,15 @@ resources:
   parameters:
     config:
       HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
       version: 1.0.0
     service: destination
     service-name: empdetais-destination-service
