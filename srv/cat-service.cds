@@ -1,13 +1,17 @@
 using my.bookshop as my from '../db/data-model';
 // @(requires: 'authenticated-user')
-service CatalogService@(requires: 'authenticated-user')  {
+service CatalogService@(requires: 'authenticated-user') {
     @readonly entity Books as projection on my.Books;
     entity Employees@(
         restrict: [
             {
               grant: ['READ'],
-              to: ['Admin'],
+              to: ['Viewer'],
               where: 'dept = $user.dept'
+            },
+            {
+              grant: ['*'],
+              to: ['Admin']
             }
           ]
         ) as projection on my.Employees;

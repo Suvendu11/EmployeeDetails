@@ -46,11 +46,16 @@
           "users": {
             "suvendurout807@gmail.com": {
               "roles": [
-                "Admin"
+                "Viewer"
               ],
               "userAttributes": {
                 "dept": "BB"
               }
+            },
+            "admin": {
+              "roles": [
+                "Admin"
+              ]
             }
           }
         }

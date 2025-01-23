@@ -12,12 +12,22 @@
       "description": "Administrator"
     }
   ],
+  "attributes": [
+    {
+      "name": "dept",
+      "description": "Department",
+      "valueType": "string"
+    }
+  ],
   "role-templates": [
     {
       "name": "Viewer",
       "description": "Viewer Role",
       "scope-references": [
         "$XSAPPNAME.Viewer"
+      ],
+      "attribute-references": [
+        "dept"
       ]
     },
     {
@@ -25,6 +35,9 @@
       "description": "Administrator Role",
       "scope-references": [
         "$XSAPPNAME.Admin"
+      ],
+      "attribute-references": [
+        "dept"
       ]
     }
   ]
